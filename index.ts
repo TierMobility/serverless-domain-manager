@@ -306,7 +306,8 @@ class ServerlessCustomDomain {
         let createdDomain = {};
         try {
             createdDomain = await this.apigateway.createDomainName(params).promise();
-        } catch {
+        } catch(e) {
+            this.serverless.cli.log(`Error: ${e.toString()}`)
             throw new Error(`Error: Failed to create custom domain ${this.givenDomainName}\n`);
         }
         return new DomainInfo(createdDomain);
